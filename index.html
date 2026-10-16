@@ -1,37 +1,212 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rhamy Jewellers | হিসাব ও স্টক</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rhamy Jewellers হিসাব</title>
 <style>
-:root {
-  --gold: #c9a44c;
-  --dark: #17221e;
-  --bg: #f5f5f0;
-  --white: #ffffff;
-  --muted: #69756f;
-  --border: #e4e7e2;
-  --green: #16845b;
-  --red: #c0392b;
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f2eb;color:#26231d}
+header{background:#211d15;color:#fff;padding:20px;text-align:center;border-bottom:4px solid #c6a04a}
+header h1{margin:0;font-size:25px}
+header p{color:#e8d7a9;margin-bottom:0}
+main{max-width:900px;margin:auto;padding:14px}
+nav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+button{padding:11px;border:0;border-radius:8px;background:#b38b36;color:white;font-weight:bold;cursor:pointer}
+nav button{background:#fff;color:#332d20;border:1px solid #ddd}
+nav button.active{background:#b38b36;color:#fff}
+section{display:none}
+section.active{display:block}
+.card{background:white;border:1px solid #e5dfd2;border-radius:12px;padding:15px;margin-bottom:13px}
+h2{font-size:18px;margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
+label{font-size:13px;display:block;margin:8px 0 5px;color:#625b4d}
+input,select{width:100%;padding:11px;border:1px solid #d9d2c5;border-radius:7px;font-size:15px;background:white}
+.full{width:100%;margin-top:13px}
+.stat{background:white;border:1px solid #e5dfd2;border-radius:10px;padding:13px}
+.stat small{display:block;color:#777;margin-bottom:7px}
+.stat strong{font-size:20px;overflow-wrap:anywhere}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:9px;border-bottom:1px solid #eee}
+th{background:#f7f4ed}
+.scroll{overflow:auto}
+.note{font-size:13px;line-height:1.7;color:#625b4d}
+#message{padding:10px;color:#26734d;font-weight:bold}
+</style>
+</head>
+<body>
+<header>
+<h1>Rhamy Jewellers</h1>
+<p>স্টক ও দোকানের হিসাব</p>
+</header>
+<main>
+<div class="card">
+<div class="note">প্রাথমিক পরীক্ষামূলক সংস্করণ। তথ্য এই ব্রাউজারে সেভ হয়, অনলাইনে সবার ডিভাইসে একসঙ্গে নয়। গুরুত্বপূর্ণ হিসাবের জন্য ব্যাকআপ রাখুন।</div>
+</div>
+<div class="grid" style="margin-bottom:14px">
+<div class="stat"><small>স্টকের পিস</small><strong id="totalItems">0</strong></div>
+<div class="stat"><small>মজুত ওজন</small><strong id="totalWeight">0 g</strong></div>
+<div class="stat"><small>মোট বিক্রি</small><strong id="totalSales">৳0</strong></div>
+<div class="stat"><small>রেকর্ডকৃত ব্যয়</small><strong id="totalExpenses">৳0</strong></div>
+</div>
+<nav>
+<button class="active" data-tab="stock">স্টক</button>
+<button data-tab="sales">বিক্রি</button>
+<button data-tab="old">পুরোনো গয়না কেনা</button>
+<button data-tab="worker">কারিগর</button>
+<button data-tab="money">আয়-ব্যয়</button>
+<button data-tab="backup">ব্যাকআপ</button>
+</nav>
+
+<section id="stock" class="active">
+<div class="card">
+<h2>স্টকে নতুন পণ্য যোগ</h2>
+<form id="stockForm">
+<div class="grid">
+<div><label>পণ্যের নাম</label><input name="name" required placeholder="যেমন: সোনার চুড়ি"></div>
+<div><label>ধাতু</label><select name="metal"><option>স্বর্ণ</option><option>রুপা</option></select></div>
+<div><label>বিশুদ্ধতা</label><select name="purity"><option>22K</option><option>21K</option><option>18K</option><option>24K</option><option>সনাতন</option><option>রুপা</option></select></div>
+<div><label>পরিমাণ (পিস)</label><input name="qty" type="number" min="1" value="1" required></div>
+<div><label>ওজনের একক</label><select name="unit"><option>ভরি-আনা-রতি-পয়েন্ট</option><option>গ্রাম</option></select></div>
+<div><label>ভরি</label><input name="bhori" type="number" min="0" step="any" value="0"></div>
+<div><label>আনা</label><input name="ana" type="number" min="0" step="any" value="0"></div>
+<div><label>রতি</label><input name="roti" type="number" min="0" step="any" value="0"></div>
+<div><label>পয়েন্ট</label><input name="point" type="number" min="0" step="any" value="0"></div>
+<div><label>গ্রাম</label><input name="grams" type="number" min="0" step="any" value="0"></div>
+<div><label>মোট ক্রয়/তৈরির খরচ (৳)</label><input name="cost" type="number" min="0" step="any" value="0"></div>
+<div><label>প্রতি পিস বিক্রির দাম (৳)</label><input name="price" type="number" min="0" step="any" value="0"></div>
+</div>
+<button class="full">স্টকে যোগ করুন</button>
+</form>
+</div>
+<div class="card"><h2>বর্তমান স্টক</h2><div class="scroll" id="stockList"></div></div>
+</section>
+
+<section id="sales">
+<div class="card">
+<h2>পণ্য বিক্রি</h2>
+<form id="saleForm">
+<label>পণ্য</label><select name="item" id="saleItem" required></select>
+<div class="grid">
+<div><label>কত পিস</label><input name="qty" type="number" min="1" value="1" required></div>
+<div><label>প্রতি পিস বিক্রির দাম</label><input name="price" type="number" min="0" step="any" required></div>
+<div><label>অতিরিক্ত মজুরি/আয়</label><input name="making" type="number" min="0" step="any" value="0"></div>
+<div><label>ছাড়</label><input name="discount" type="number" min="0" step="any" value="0"></div>
+<div><label>কাস্টমারের নাম</label><input name="customer"></div>
+<div><label>পেমেন্ট</label><select name="method"><option>নগদ</option><option>বিকাশ/নগদ</option><option>ব্যাংক</option><option>বাকি</option></select></div>
+</div>
+<button class="full">বিক্রি সংরক্ষণ</button>
+</form>
+</div>
+<div class="card"><h2>বিক্রির রেকর্ড</h2><div class="scroll" id="salesList"></div></div>
+</section>
+
+<section id="old">
+<div class="card">
+<h2>পুরোনো স্বর্ণ/রুপা কেনা</h2>
+<form id="oldForm">
+<div class="grid">
+<div><label>ধাতু</label><select name="metal"><option>স্বর্ণ</option><option>রুপা</option></select></div>
+<div><label>বিশুদ্ধতা</label><select name="purity"><option>22K</option><option>21K</option><option>18K</option><option>সনাতন</option><option>রুপা</option><option>পরীক্ষাধীন</option></select></div>
+<div><label>কাস্টমারের নাম</label><input name="customer"></div>
+<div><label>ওজনের একক</label><select name="unit"><option>ভরি-আনা-রতি-পয়েন্ট</option><option>গ্রাম</option></select></div>
+<div><label>ভরি</label><input name="bhori" type="number" min="0" step="any" value="0"></div>
+<div><label>আনা</label><input name="ana" type="number" min="0" step="any" value="0"></div>
+<div><label>রতি</label><input name="roti" type="number" min="0" step="any" value="0"></div>
+<div><label>পয়েন্ট</label><input name="point" type="number" min="0" step="any" value="0"></div>
+<div><label>গ্রাম</label><input name="grams" type="number" min="0" step="any" value="0"></div>
+<div><label>মোট পরিশোধ (৳)</label><input name="paid" type="number" min="0" step="any" required></div>
+<div><label>নোট</label><input name="note"></div>
+</div>
+<button class="full">কেনা সংরক্ষণ</button>
+</form>
+</div>
+<div class="card"><h2>পুরোনো গয়না কেনার রেকর্ড</h2><div class="scroll" id="oldList"></div></div>
+</section>
+
+<section id="worker">
+<div class="card">
+<h2>কারিগরকে ধাতু দেওয়া/ফেরত</h2>
+<p class="note">মজুরির হিসাব নয়—শুধু কত ওজন দিয়েছ এবং কত ওজন ফেরত পেয়েছ। ওজন গ্রামে লিখবে।</p>
+<form id="workerForm">
+<div class="grid">
+<div><label>কারিগরের নাম</label><input name="worker" required></div>
+<div><label>ধাতু/ক্যারেট</label><input name="metal" required placeholder="স্বর্ণ 22K / রুপা"></div>
+<div><label>অর্ডার/কাস্টমার</label><input name="customer"></div>
+<div><label>দেওয়া ওজন (গ্রাম)</label><input name="given" type="number" min="0" step="any" required></div>
+<div><label>ফেরত পাওয়া ওজন (গ্রাম)</label><input name="returned" type="number" min="0" step="any" value="0" required></div>
+<div><label>অবস্থা</label><select name="status"><option>কারিগরের কাছে আছে</option><option>আংশিক ফেরত</option><option>সব ফেরত পেয়েছি</option></select></div>
+</div>
+<button class="full">হিসাব সংরক্ষণ</button>
+</form>
+</div>
+<div class="card"><h2>কারিগরের রেকর্ড</h2><div class="scroll" id="workerList"></div></div>
+</section>
+
+<section id="money">
+<div class="card">
+<h2>আয়-ব্যয় যোগ</h2>
+<form id="moneyForm">
+<div class="grid">
+<div><label>ধরন</label><select name="type"><option>ব্যয়</option><option>অন্যান্য আয়</option><option>কারিগরকে পরিশোধ</option><option>বাকি আদায়</option></select></div>
+<div><label>খাত</label><input name="category" required placeholder="ভাড়া/বিদ্যুৎ/অন্যান্য"></div>
+<div><label>টাকা (৳)</label><input name="amount" type="number" min="0.01" step="any" required></div>
+<div><label>পেমেন্ট</label><select name="method"><option>নগদ</option><option>বিকাশ/নগদ</option><option>ব্যাংক</option></select></div>
+</div>
+<button class="full">লেনদেন সংরক্ষণ</button>
+</form>
+</div>
+<div class="card"><h2>লেনদেনের রেকর্ড</h2><div class="scroll" id="moneyList"></div></div>
+</section>
+
+<section id="backup">
+<div class="card">
+<h2>ডেটা ব্যাকআপ</h2>
+<p class="note">এই সংস্করণে ডেটা শুধু বর্তমান ব্রাউজারে সেভ হয়। ব্যাকআপ ফাইল ডাউনলোড করে নিরাপদে রাখো। অন্য ডিভাইসের সঙ্গে ডেটা নিজে থেকে মিলবে না।</p>
+<button id="download">ব্যাকআপ ডাউনলোড</button>
+<label>ব্যাকআপ ফিরিয়ে আনো</label><input type="file" id="restore" accept=".json,application/json">
+</div>
+</section>
+<div id="message"></div>
+</main>
+<script>
+const KEY='rhamyJewellersLocalV1';
+let db;
+try{db=JSON.parse(localStorage.getItem(KEY))||{stock:[],sales:[],old:[],worker:[],money:[]}}
+catch(e){db={stock:[],sales:[],old:[],worker:[],money:[]}}
+const $=s=>document.querySelector(s);
+const money=n=>'৳'+(Number(n)||0).toLocaleString('en-BD',{maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const grams=f=>f.unit==='গ্রাম'?Number(f.grams||0):Number(f.bhori||0)*11.664+Number(f.ana||0)*0.729+Number(f.roti||0)*0.1215+Number(f.point||0)*0.01215;
+const wg=n=>(Number(n)||0).toLocaleString('en-BD',{maximumFractionDigits:3})+' g';
+const date=()=>new Date().toLocaleDateString('en-CA');
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render();$('#message').textContent='হিসাব সংরক্ষণ হয়েছে';}
+function table(rows,heads){if(!rows.length)return '<p class="note">এখনো কোনো রেকর্ড নেই</p>';return '<table><thead><tr>'+heads.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table>'}
+function render(){
+$('#totalItems').textContent=db.stock.reduce((s,x)=>s+x.qty,0);
+$('#totalWeight').textContent=wg(db.stock.reduce((s,x)=>s+x.grams*x.qty,0));
+$('#totalSales').textContent=money(db.sales.reduce((s,x)=>s+x.total,0));
+$('#totalExpenses').textContent=money(db.money.filter(x=>x.type==='ব্যয়'||x.type==='কারিগরকে পরিশোধ').reduce((s,x)=>s+x.amount,0)+db.old.reduce((s,x)=>s+x.paid,0));
+$('#stockList').innerHTML=table(db.stock.map(x=>`<tr><td>${esc(x.name)}<br>${esc(x.metal)} ${esc(x.purity)}</td><td>${x.qty} পিস</td><td>${wg(x.grams*x.qty)}</td><td>${money(x.cost)}</td><td>${money(x.price)}</td><td><button onclick="removeRow('stock','${x.id}')">মুছুন</button></td></tr>`),['পণ্য','পরিমাণ','ওজন','মোট খরচ','প্রতি পিস দাম','']);
+$('#saleItem').innerHTML=db.stock.filter(x=>x.qty>0).map(x=>`<option value="${x.id}">${esc(x.name)} (${x.qty} পিস)</option>`).join('')||'<option value="">আগে স্টক যোগ করুন</option>';
+$('#salesList').innerHTML=table(db.sales.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.name)}</td><td>${x.qty}</td><td>${money(x.total)}</td><td>${esc(x.method)}</td></tr>`),['তারিখ','পণ্য','পিস','মোট','পেমেন্ট']);
+$('#oldList').innerHTML=table(db.old.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.metal)} ${esc(x.purity)}</td><td>${esc(x.customer)}</td><td>${wg(x.grams)}</td><td>${money(x.paid)}</td></tr>`),['তারিখ','ধাতু','কাস্টমার','ওজন','পরিশোধ']);
+$('#workerList').innerHTML=table(db.worker.slice().reverse().map(x=>`<tr><td>${esc(x.worker)}</td><td>${esc(x.metal)}</td><td>${wg(x.given)}</td><td>${wg(x.returned)}</td><td>${wg(x.given-x.returned)}</td><td>${esc(x.status)}</td></tr>`),['কারিগর','ধাতু','দেওয়া','ফেরত','পার্থক্য','অবস্থা']);
+$('#moneyList').innerHTML=table(db.money.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.type)}</td><td>${esc(x.category)}</td><td>${money(x.amount)}</td></tr>`),['তারিখ','ধরন','খাত','টাকা']);
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans Bengali",
-    "Segoe UI", sans-serif;
-  background: var(--bg);
-  color: #202923;
-}
-header {
-  background: var(--dark);
-  color: white;
-  padding: 22px 18px;
-  border-bottom: 4px solid var(--gold);
-}
-.brand {
-  font-size: 25px;
-  font-weight: 800;
-  color: #f0cf79;
-  letter-spacing: .5
+function removeRow(type,id){if(confirm('এই রেকর্ড মুছবেন?')){db[type]=db[type].filter(x=>x.id!==id);save()}}
+window.removeRow=removeRow;
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.remove('active'));document.querySelectorAll('main section').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('#'+b.dataset.tab).classList.add('active')});
+$('#stockForm').onsubmit=e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target));db.stock.push({id:crypto.randomUUID(),name:f.name,metal:f.metal,purity:f.purity,qty:Math.max(1,Number(f.qty)),grams:grams(f),cost:Number(f.cost),price:Number(f.price)});e.target.reset();save()};
+$('#saleItem').onchange=()=>{let x=db.stock.find(x=>x.id===$('#saleItem').value);if(x)$('#saleForm [name=price]').value=x.price};
+$('#saleForm').onsubmit=e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),x=db.stock.find(x=>x.id===f.item),q=Number(f.qty);if(!x||q<1||q>x.qty){alert('স্টকের পরিমাণ ঠিক নেই');return}db.sales.push({date:date(),name:x.name,qty:q,total:Math.max(0,q*Number(f.price)+Number(f.making)-Number(f.discount)),method:f.method,customer:f.customer});x.qty-=q;db.stock=db.stock.filter(x=>x.qty>0);e.target.reset();save()};
+$('#oldForm').onsubmit=e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target));db.old.push({date:date(),metal:f.metal,purity:f.purity,customer:f.customer,grams:grams(f),paid:Number(f.paid),note:f.note});e.target.reset();save()};
+$('#workerForm').onsubmit=e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target));db.worker.push({worker:f.worker,metal:f.metal,customer:f.customer,given:Number(f.given),returned:Number(f.returned),status:f.status});e.target.reset();save()};
+$('#moneyForm').onsubmit=e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target));db.money.push({date:date(),...f,amount:Number(f.amount)});e.target.reset();save()};
+$('#download').onclick=()=>{let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='rhamy-jewellers-backup.json';a.click();URL.revokeObjectURL(a.href)};
+$('#restore').onchange=async e=>{try{let d=JSON.parse(await e.target.files[0].text());if(!d.stock||!d.sales||!d.old||!d.worker||!d.money)throw Error();if(confirm('বর্তমান ডেটার বদলে ব্যাকআপ ফিরিয়ে আনবেন?')){db=d;save()}}catch(err){alert('সঠিক ব্যাকআপ ফাইল নির্বাচন করুন')}};
+render();
+</script>
+</body>
+</html>
