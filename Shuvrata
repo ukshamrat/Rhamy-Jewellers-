@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<title>RHAMY JEWELLERS - SHUVRATA HISAB</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#101010;color:#f5f5f5;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans Bengali",
+  "Segoe UI",sans-serif;padding:14px
+}
+.container{max-width:1000px;margin:auto}
+header{text-align:center;padding:18px 8px}
+.logo{color:#e8c66a;font-size:25px;font-weight:900;letter-spacing:1px}
+.subtitle{color:#ddd;margin-top:8px;font-size:14px}
+h2{font-size:18px;margin:0 0 14px}
+h3{font-size:16px;margin:0 0 12px}
+.panel{
+  background:#1b1b1b;border:1px solid #383838;
+  border-radius:14px;padding:14px;margin-bottom:14px
+}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gold-title{color:#e8c66a}
+label{display:block;font-size:13px;color:#ddd;margin:10px 0 5px}
+input,select,button{
+  font:inherit;border-radius:9px;padding:11px;width:100%;
+}
+input,select{
+  background:#101010;color:white;border:1px solid #484848;
+  min-width:0
+}
+.weight-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.weight-row input{padding:10px 3px;text-align:center;font-size:14px}
+.small-label{font-size:11px;color:#aaa;text-align:center;margin-top:5px}
+button{
+  border:0;cursor:pointer;font-weight:700;
+  background:#e8c66a;color:#17130a
+}
+button:active{opacity:.8}
+.save-btn{padding:15px;font-size:16px;margin:2px 0 14px}
+.secondary{background:#333;color:#fff}
+.danger{background:#512525;color:#fff;width:auto;padding:8px 10px;font-size:12px}
+.summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.summary-card{
+  background:#252525;border-radius:10px;padding:12px 8px;text-align:center;
+  border:1px solid #383838;min-width:0
+}
+.summary-card .name{font-size:12px;color:#bbb;margin-bottom:9px}
+.summary-card .value{font-size:15px;color:#e8c66a;font-weight:800;overflow-wrap:anywhere}
+.summary-card .unit{font-size:11px;color:#aaa;margin-top:5px}
+.muted{color:#aaa;font-size:12px;line-height:1.6}
+.entry{
+  background:#242424;border-radius:10px;padding:12px;margin-top:10px;
+  border-left:3px solid #e8c66a
+}
+.entry-head{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.entry-date{color:#e8c66a;font-weight:700;font-size:13px}
+.entry-details{font-size:13px;line-height:1.8;margin:8px 0;overflow-wrap:anywhere}
+.entry-details strong{color:#fff}
+.report-line{padding:9px 0;border-bottom:1px solid #383838;font-size:14px}
+.report-line:last-child{border-bottom:0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.notice{
+  background:#282319;color:#e8d8a6;border:1px solid #5c4c27;
+  border-radius:9px;padding:10px;font-size:12px;line-height:1.7;margin-top:12px
+}
+footer{text-align:center;color:#777;font-size:11px;padding:15px}
+@media(max-width:420px){
+  body{padding:8px}
+  .columns{gap:7px}
+  .panel{padding:10px}
+  .weight-row{gap:3px}
+  .weight-row input{font-size:12px;padding:10px 1px}
+  .logo{font-size:21px}
+  .summary-card .value{font-size:13px}
+  .summary-card{padding:10px 4px}
+  h2{font-size:16px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <div class="logo">RHAMY JEWELLERS</div>
+  <div class="subtitle">SHUVRATA KARIGAR HISAB</div>
+  <div class="muted">সোনার ওজনের দৈনিক হিসাব</div>
+</header>
+
+<section class="panel">
+  <h2>নতুন হিসাব লিখুন</h2>
+
+  <label for="entryDate">হিসাবের তারিখ</label>
+  <input type="date" id="entryDate">
+
+  <div class="columns" style="margin-top:14px">
+
+    <div class="panel" style="margin:0;border-color:#6a5726">
+      <h3 class="gold-title">আমি দিলাম</h3>
+      <div class="muted">SHUVRATA-কে দেওয়া সোনা</div>
+
+      <label>ওজন লিখুন</label>
+      <div class="weight-row">
+        <div><input id="gb" type="number" min="0" step="1" placeholder="0" inputmode="numeric"><div class="small-label">ভরি</div></div>
+        <div><input id="ga" type="number" min="0" max="15" step="1" placeholder="0" inputmode="numeric"><div class="small-label">আনা</div></div>
+        <div><input id="gr" type="number" min="0" max="5" step="1" placeholder="0" inputmode="numeric"><div class="small-label">রতি</div></div>
+        <div><input id="gp" type="number" min="0" max="9" step="1" placeholder="0" inputmode="numeric"><div class="small-label">পয়েন্ট</div></div>
+      </div>
+      <p class="muted">দেওয়া সোনা: ২৪K</p>
+    </div>
+
+    <div class="panel" style="margin:0;border-color:#6a5726">
+      <h3 class="gold-title">SHUVRATA আমাকে দিল</h3>
+      <div class="muted">ফেরত পাওয়া গহনা</div>
+
+      <label for="karat">গহনার ক্যারেট</label>
+      <select id="karat">
+        <option value="24K">24K</option>
+        <option value="22K" selected>22K</option>
+        <option value="21K">21K</option>
+        <option value="18K">18K</option>
+      </select>
+
+      <label>ওজন লিখুন</label>
+      <div class="weight-row">
+        <div><input id="rb" type="number" min="0" step="1" placeholder="0" inputmode="numeric"><div class="small-label">ভরি</div></div>
+        <div><input id="ra" type="number" min="0" max="15" step="1" placeholder="0" inputmode="numeric"><div class="small-label">আনা</div></div>
+        <div><input id="rr" type="number" min="0" max="5" step="1" placeholder="0" inputmode="numeric"><div class="small-label">রতি</div></div>
+        <div><input id="rp" type="number" min="0" max="9" step="1" placeholder="0" inputmode="numeric"><div class="small-label">পয়েন্ট</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <label for="note">বিবরণ (ঐচ্ছিক)</label>
+  <input id="note" type="text" maxlength="150" placeholder="যেমন: চুড়ি, আংটি বা অন্য কোনো নোট">
+
+  <button class="save-btn" onclick="saveEntry()">হিসাব সেভ করুন</button>
+  <div class="muted">যেদিন শুধু সোনা দেবে অথবা শুধু গহনা পাবে, সেদিন অন্য পাশ খালি রাখতে পারবে।</div>
+</section>
+
+<section class="panel">
+  <h2>মাসিক হিসাব</h2>
+  <label for="monthFilter">মাস নির্বাচন করুন</label>
+  <input type="month" id="monthFilter">
+
+  <div class="summary-grid" style="margin-top:12px">
+    <div class="summary-card">
+      <div class="name">মোট দিয়েছি</div>
+      <div class="value" id="monthGiven">০ ভরি</div>
+      <div class="unit" id="monthGivenSub">০ পয়েন্ট</div>
+    </div>
+    <div class="summary-card">
+      <div class="name">মোট পেয়েছি</div>
+      <div class="value" id="monthReturned">০ ভরি</div>
+      <div class="unit" id="monthReturnedSub">০ পয়েন্ট</div>
+    </div>
+    <div class="summary-card">
+      <div class="name">ওজনের পার্থক্য</div>
+      <div class="value" id="monthBalance">০ ভরি</div>
+      <div class="unit" id="monthBalanceSub">০ পয়েন্ট</div>
+    </div>
+  </div>
+
+  <div class="notice">
+    এটি শুধু ওজনের হিসাব। ফেরত পাওয়া গহনার ক্যারেট আলাদাভাবে সংরক্ষণ করা হয়, কিন্তু ক্যারেট অনুযায়ী ওজন পরিবর্তন বা বিশুদ্ধতার হিসাব করা হয় না।
+  </div>
+
+  <h3 style="margin-top:20px">ফেরত পাওয়া গহনার ক্যারেট অনুযায়ী ওজন</h3>
+  <div id="karatSummary"></div>
+</section>
+
+<section class="panel">
+  <h2>সব হিসাব</h2>
+  <div class="actions">
+    <button class="secondary" onclick="exportBackup()">ব্যাকআপ ডাউনলোড</button>
+    <button class="secondary" onclick="document.getElementById('importFile').click()">ব্যাকআপ ফিরিয়ে আনুন</button>
+  </div>
+  <input id="importFile" type="file" accept=".json,application/json" style="display:none" onchange="importBackup(event)">
+
+  <label for="historyFilter">হিসাব খুঁজুন — মাস অনুযায়ী</label>
+  <input id="historyFilter" type="month">
+
+  <div id="history"></div>
+</section>
+
+<footer>RHAMY JEWELLERS • SHUVRATA KARIGAR HISAB</footer>
+</div>
+
+<script>
+const STORAGE_KEY = "rhamy_shuvrata_weight_ledger_v1";
+const POINTS_PER_BHORI = 960;
+const POINTS_PER_ANA = 60;
+const POINTS_PER_ROTI = 10;
+const KARATS = ["24K","22K","21K","18K"];
+
+let entries = [];
+
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  entries = saved ? JSON.parse(saved) : [];
+  if (!Array.isArray(entries)) entries = [];
+} catch (e) {
+  entries = [];
+}
+
+function localDateString() {
+  const d = new Date();
+  return d.getFullYear() + "-" +
+    String(d.getMonth()+1).padStart(2,"0") + "-" +
+    String(d.getDate()).padStart(2,"0");
+}
+
+function currentMonth() {
+  return localDateString().slice(0,7);
+}
+
+document.getElementById("entryDate").value = localDateString();
+document.getElementById("monthFilter").value = currentMonth();
+document.getElementById("historyFilter").value = "";
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+}
+
+function getNumber(id) {
+  const el = document.getElementById(id);
+  const raw = el.value.trim();
+  if (raw === "") return 0;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 0 || !Number.isInteger(n)) {
+    throw new Error("ওজনের ঘরে শূন্য বা তার চেয়ে বড় পূর্ণসংখ্যা লিখুন।");
+  }
+  return n;
+}
+
+function weightFromFields(prefix) {
+  const b = getNumber(prefix+"b");
+  const a = getNumber(prefix+"a");
+  const r = getNumber(prefix+"r");
+  const p = getNumber(prefix+"p");
+
+  if (a > 15) throw new Error("আনা ০ থেকে ১৫-এর মধ্যে লিখুন।");
+  if (r > 5) throw new Error("রতি ০ থেকে ৫-এর মধ্যে লিখুন।");
+  if (p > 9) throw new Error("পয়েন্ট ০ থেকে ৯-এর মধ্যে লিখুন।");
+
+  return b*POINTS_PER_BHORI +
+    a*POINTS_PER_ANA +
+    r*POINTS_PER_ROTI + p;
+}
+
+function formatWeight(points) {
+  points = Math.round(Number(points) || 0);
+  const sign = points < 0 ? "-" : "";
+  let n = Math.abs(points);
+  const b = Math.floor(n / POINTS_PER_BHORI);
+  n %= POINTS_PER_BHORI;
+  const a = Math.floor(n / POINTS_PER_ANA);
+  n %= POINTS_PER_ANA;
+  const r = Math.floor(n / POINTS_PER_ROTI);
+  const p = n % POINTS_PER_ROTI;
+
+  return sign + b + " ভরি " + a + " আনা " + r + " রতি " + p + " পয়েন্ট";
+}
+
+function bengaliNumber(n) {
+  return String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[Number(d)]);
+}
+
+function shortWeight(points) {
+  const s = formatWeight(points);
+  return bengaliNumber(s);
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[ch]));
+}
+
+function saveEntry() {
+  try {
+    const date = document.getElementById("entryDate").value;
+    if (!date) {
+      alert("তারিখ নির্বাচন করুন।");
+      return;
+    }
+
+    const given = weightFromFields("g");
+    const returned = weightFromFields("r");
+    const note = document.getElementById("note").value.trim();
+    const karat = document.getElementById("karat").value;
+
+    if (given === 0 && returned === 0) {
+      alert("অন্তত এক পাশে ওজন লিখুন।");
+      return;
+    }
+
+    if (returned > 0 && !KARATS.includes(karat)) {
+      alert("ফেরত পাওয়া গহনার ক্যারেট নির্বাচন করুন।");
+      return;
+    }
+
+    entries.push({
+      id: (Date.now().toString(36) + Math.random().toString(36).slice(2,8)),
+      date,
+      given,
+      returned,
+      karat: returned > 0 ? karat : "",
+      note
+    });
+
+    saveData();
+    clearForm();
+    renderAll();
+    alert("হিসাব সেভ হয়েছে।");
+  } catch (err) {
+    alert(err.message || "হিসাব সেভ করা যায়নি।");
+  }
+}
+
+function clearForm() {
+  ["gb","ga","gr","gp","rb","ra","rr","rp","note"].forEach(id => {
+    document.getElementById(id).value = "";
+  });
+  document.getElementById("entryDate").value = localDateString();
+  document.getElementById("karat").value = "22K";
+}
+
+function getMonthEntries(month) {
+  return entries.filter(e => e.date && e.date.startsWith(month));
+}
+
+function renderSummary() {
+  const month = document.getElementById("monthFilter").value || currentMonth();
+  const list = getMonthEntries(month);
+  const given = list.reduce((sum,e) => sum + (Number(e.given)||0), 0);
+  const returned = list.reduce((sum,e) => sum + (Number(e.returned)||0), 0);
+  const balance = given - returned;
+
+  document.getElementById("monthGiven").textContent =
+    bengaliNumber(Math.floor(given/POINTS_PER_BHORI)) + " ভরি";
+  document.getElementById("monthGivenSub").textContent = shortWeight(given);
+
+  document.getElementById("monthReturned").textContent =
+    bengaliNumber(Math.floor(returned/POINTS_PER_BHORI)) + " ভরি";
+  document.getElementById("monthReturnedSub").textContent = shortWeight(returned);
+
+  document.getElementById("monthBalance").textContent =
+    bengaliNumber(Math.floor(Math.abs(balance)/POINTS_PER_BHORI)) +
+    " ভরি " + (balance < 0 ? "(বেশি ফেরত)" : "");
+  document.getElementById("monthBalanceSub").textContent =
+    shortWeight(balance);
+
+  const totals = {};
+  KARATS.forEach(k => totals[k] = 0);
+  list.forEach(e => {
+    if (e.returned > 0 && totals[e.karat] !== undefined) {
+      totals[e.karat] += Number(e.returned)||0;
+    }
+  });
+
+  document.getElementById("karatSummary").innerHTML =
+    KARATS.map(k =>
+      '<div class="report-line"><strong>' + k + '</strong>' +
+      '<div class="muted">' + escapeHTML(shortWeight(totals[k])) + '</div></div>'
+    ).join("");
+}
+
+function renderHistory() {
+  const month = document.getElementById("historyFilter").value;
+  const list = [...entries]
+    .filter(e => !month || (e.date && e.date.startsWith(month)))
+    .sort((a,b) => (b.date || "").localeCompare(a.date || ""));
+
+  const root = document.getElementById("history");
+
+  if (list.length === 0) {
+    root.innerHTML = '<p class="muted" style="text-align:center;padding:16px">এখনো কোনো হিসাব নেই।</p>';
+    return;
+  }
+
+  root.innerHTML = list.map(e => {
+    const given = Number(e.given)||0;
+    const returned = Number(e.returned)||0;
+
+    let details = "";
+    if (given > 0) {
+      details += '<div> <strong>আমি দিলাম:</strong> ' +
+        escapeHTML(shortWeight(given)) + ' (২৪K)</div>';
+    }
+    if (returned > 0) {
+      details += '<div><strong>SHUVRATA আমাকে দিল:</strong> ' +
+        escapeHTML(shortWeight(returned)) + ' (' +
+        escapeHTML(e.karat || "ক্যারেট উল্লেখ নেই") + ')</div>';
+    }
+    if (e.note) {
+      details += '<div><strong>বিবরণ:</strong> ' + escapeHTML(e.note) + '</div>';
+    }
+
+    return '<div class="entry">' +
+      '<div class="entry-head">' +
+      '<div class="entry-date">' + escapeHTML(e.date || "") + '</div>' +
+      '<button class="danger" onclick="deleteEntry(\'' +
+      escapeHTML(e.id) + '\')">ডিলিট</button></div>' +
+      '<div class="entry-details">' + details + '</div></div>';
+  }).join("");
+}
+
+function deleteEntry(id) {
+  if (!confirm("এই হিসাবটি ডিলিট করতে চান?")) return;
+  entries = entries.filter(e => e.id !== id);
+  saveData();
+  renderAll();
+}
+
+function exportBackup() {
+  const data = JSON.stringify({
+    app: "RHAMY JEWELLERS - SHUVRATA KARIGAR HISAB",
+    version: 1,
+    entries
+  }, null, 2);
+
+  const blob = new Blob([data], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "rhamy-shuvrata-backup-" + localDateString() + ".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function importBackup(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function() {
+    try {
+      const parsed = JSON.parse(reader.result);
+      const incoming = Array.isArray(parsed) ? parsed : parsed.entries;
+
+      if (!Array.isArray(incoming)) {
+        throw new Error("এই ফাইলে সঠিক হিসাব পাওয়া যায়নি।");
+      }
+
+      const valid = incoming.every(e =>
+        e && typeof e.date === "string" &&
+        Number.isFinite(Number(e.given)) &&
+        Number.isFinite(Number(e.returned)) &&
+        Number(e.given) >= 0 && Number(e.returned) >= 0
+      );
+
+      if (!valid) throw new Error("ব্যাকআপ ফাইলের তথ্য সঠিক নয়।");
+
+      if (!confirm("ব্যাকআপের হিসাব দিয়ে এই ফোনের বর্তমান হিসাব প্রতিস্থাপন করবেন? আগে বর্তমান হিসাবের ব্যাকআপ নিন।")) {
+        event.target.value = "";
+        return;
+      }
+
+      entries = incoming.map(e => ({
+        id: String(e.id || (Date.now().toString(36) + Math.random().toString(36).slice(2,7))),
+        date: e.date,
+        given: Math.round(Number(e.given)),
+        returned: Math.round(Number(e.returned)),
+        karat: KARATS.includes(e.karat) ? e.karat : "",
+        note: String(e.note || "")
+      }));
+
+      saveData();
+      renderAll();
+      alert("ব্যাকআপ ফিরিয়ে আনা হয়েছে।");
+    } catch(err) {
+      alert(err.message || "ব্যাকআপ ফাইল পড়া যায়নি।");
+    }
+    event.target.value = "";
+  };
+  reader.readAsText(file);
+}
+
+function renderAll() {
+  renderSummary();
+  renderHistory();
+}
+
+document.getElementById("monthFilter").addEventListener("change", renderSummary);
+document.getElementById("historyFilter").addEventListener("change", renderHistory);
+
+renderAll();
+</script>
+</body>
+</html>
